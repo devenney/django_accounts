@@ -1,0 +1,18 @@
+language: python
+cache:
+  - "pip"
+python:
+  - "3.6"
+install:
+  - "pip install pipenv"
+  - "pipenv install --dev"
+script:
+  # Package Safety Check
+  - "pipenv check"
+  # Static Code Analysis
+  - "pipenv run prospector"
+  # Django Tests
+  - "pipenv run python ./manage.py"
+after_success:
+  # Submit Coverage
+  - "pipenv run coveralls"
