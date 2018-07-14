@@ -1,0 +1,181 @@
+<html>
+  <head>
+    <title>
+      {% block title %}
+        Reverie
+      {% endblock %}
+    </title>
+
+    {% block extracss %}
+    {% endblock %}
+
+    {# Google Analytics #}
+    {% if GOOGLE_ANALYTICS_KEY %}
+      {% include "ga.html" %}
+    {% endif %}
+
+    <!-- Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css" integrity="sha256-zKA1Bf41O96+gJSlkn/Bh2HATW/OhwkApPlYTp3B5O8=" crossorigin="anonymous" />
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    {# FIXME: Static Resources #}
+    <style>
+			.select2-container {
+				.select2-selection--single {
+					height: auto !important;
+					padding: 3px 0 !important;
+					border: 1px solid #dbdbdb !important;
+
+					.select2-selection__arrow{
+						top: 5px !important;
+					}
+
+					.select2-selection__placeholder {
+						color: #dbdbdb !important;
+					}
+				}
+
+				.select2-dropdown {
+					border: 1px solid #dbdbdb !important;
+					border-top: 0 !important;
+
+					.select2-search {
+						margin: 5px;
+
+						.select2-search__field {
+							padding: 10px !important;
+							border-radius: 3px !important;
+							font-size: 1rem;
+							height: 2.25em;
+							box-shadow: inset 0 1px 2px rgba(10,10,10,.1);
+							max-width: 100%;
+							width: 100%;
+							border-radius: 3px !important;
+						}
+					}
+
+					.select2-results__options {
+						max-height: 200px !important;
+
+						.select2-results__option {
+							padding: 0.37em 0.75em !important;
+							font-size: 1rem;
+
+							&.select2-results__option--highlighted {
+							}
+						}
+					}
+				}
+			}
+    </style>
+
+		<script
+  		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  	crossorigin="anonymous">
+		</script>
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', function () {
+
+				// Get all "navbar-burger" elements
+				var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+				// Check if there are any navbar burgers
+				if ($navbarBurgers.length > 0) {
+
+					// Add a click event on each of them
+					$navbarBurgers.forEach(function ($el) {
+						$el.addEventListener('click', function () {
+
+							// Get the target from the "data-target" attribute
+							var target = $el.dataset.target;
+							var $target = document.getElementById(target);
+
+							// Toggle the class on both the "navbar-burger" and the "navbar-menu"
+							$el.classList.toggle('is-active');
+							$target.classList.toggle('is-active');
+
+						});
+					});
+				}
+			});
+		</script>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-item has-text-weight-bold" href="/">
+          Reverie
+        </a>
+
+        <!-- Hamburger -->
+        <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="navbar-menu" id="navMenu">
+        <div class="navbar-start">
+        </div>
+        <div class="navbar-end">
+          {# If the user is logged in... #}
+          {% if user.is_authenticated %}
+            <div class="navbar-item has-dropdown is-hoverable is-hidden-touch">
+              <a class="navbar-link" href="/">
+                {{ user.username }}
+              </a>
+
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="{% url 'account_settings' %}">
+                  Account Settings
+                </a>
+                <a class="navbar-item" href="{% url 'auth_logout' %}">
+                  Logout
+                </a>
+              </div>
+            </div>
+
+          {# Anonymous users #}
+          {% else %}
+            <a class="navbar-item" href="{% url 'auth_login' %}?next={{ request.path }}">
+              Login
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    {# Optional Hero #}
+    {% block hero %}
+
+    {% endblock %}
+
+    <!-- Child Content -->
+    <section class="section">
+      <div class="container">
+        <section class="container">
+          {% block content %}
+
+          {% endblock %}
+        </section>
+      </div>
+    </section>
+
+    <!-- TODO: Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            <strong>Reverie</strong> by <a href="https://devenney.io">Brendan Devenney</a>. Source code licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
