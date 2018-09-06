@@ -7,10 +7,10 @@ DATABASES={
     }
 }
 
-ROOT_URLCONF='account.urls'
+ROOT_URLCONF='accounts.urls'
 
 INSTALLED_APPS=(
-    'account',
+    'accounts',
 
     'django_nose',
     'django_otp',

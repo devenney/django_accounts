@@ -1,18 +1,24 @@
 language: python
 cache:
   - "pip"
+  - "yarn"
 python:
-  - "3.6"
+  - "3.7-dev"
 install:
   - "pip install pipenv"
   - "pipenv install --dev"
 script:
-  # Package Safety Check
   - "pipenv check"
-  # Static Code Analysis
-  - "pipenv run prospector"
-  # Django Tests
-  - "pipenv run python ./manage.py"
+  - "yarn lint"
+  - "yarn test"
 after_success:
-  # Submit Coverage
   - "pipenv run coveralls"
+deploy:
+  provider: "pypi"
+  distribution: "sdist"
+  skip_cleanup: true
+  user: "devenney"
+  password:
+    secure: "iBeK1XVoPBCoP6vZWrASQcVPxybKLy1QfF1dQfAYJ7x6yr9P9aNgd5NAwJRXoQJb2GRIZevaoABL2xekpkM3lZGnTymYuQkZvjMZYqefi3xqMWZcyvO1hiH6f4U+HroDfCjBrLGNYMJAJCAgIt0MoCwE2g7IrcPFw+9GJB2V41EPg28As2oFEl5I9DFczpSoJ+XkD5BUT4/42x9EwCsCA0TfvO2RRHyppG486i39DFucJANZjZ6VimGllYGrO+dGOnaJU4ayqUlmvWUEn8nyptQeAESKDpvrkoVxHeUjC5x3P1awQ7lwUYXxZlZMSnpbwqk0Y//K80r4ok19Yit/xsTNjPH2AAqHv1eD03NWhDrIOoImvxSi0yw6ATx8POLVKLgusiBbWVSYDUqd965/WbN5zYf9NBdiYnXM1O+FYzG6hTUVMMHXNCV/gn0bSDymbIJX4tPkII45da5TBFN4LjclVGPHYYy8YQqjftgNBJSvuxVfBDZrl3ohILMIi1vLsoDpyiLVd9feZTn8d8FbRJtAdga9McBAzrsIcTxt0hgilnEhM5sd4Fi6o309/UWGlWh3ZhKjetAMwMRSa3Ja/krnqhmofNeGAT4W7nd6g53m1RxQPGTYqTxTWrLA4ki/wN/mkqPgqoL4RdON+WgMuUuAqTH48JxjKIIOVHv5jPQ="
+  on:
+    tags: true

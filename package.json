@@ -1,0 +1,16 @@
+{
+  "name": "django_accounts",
+  "version": "1.0.0",
+  "repository": "ssh://git@github.com/devenney/django_accounts.git",
+  "author": "Brendan Devenney <brendan@devenney.io>",
+  "license": "MIT",
+  "scripts": {
+    "build": "gulp",
+    "lint": "pipenv run prospector",
+    "test": "pipenv run python manage.py"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-mjml": "^3.0.0"
+  }
+}
