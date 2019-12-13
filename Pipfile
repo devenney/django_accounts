@@ -8,7 +8,7 @@ prospector = "*"
 coveralls = "*"
 
 [packages]
-django = "==2.0.8"
+django = "~=2.0.0"
 django-registration-redux = "==2.4"
 django-two-factor-auth = "==1.7.0"
 django-otp = "==0.4.3"
