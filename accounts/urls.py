@@ -4,10 +4,10 @@ from django.views.generic.base import TemplateView
 
 from registration.backends.default.views import ActivationView, RegistrationView, ResendActivationView
 from registration.forms import RegistrationFormUniqueEmail
-from two_factor.views import BackupTokensView, DisableView, LoginView, PhoneDeleteView, PhoneSetupView, QRGeneratorView, SetupCompleteView, SetupView
+from two_factor.views import BackupTokensView, DisableView, LoginView, PhoneDeleteView, PhoneSetupView, QRGeneratorView, \
+    SetupCompleteView, SetupView
 
 from .views import SettingsView
-
 
 urlpatterns = [
     path(
@@ -169,7 +169,7 @@ urlpatterns = [
     ),
 
     re_path(
-        'password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$',
+        'password/reset/confirm/(?P<uidb64>[0-9A-Za-z_-]+)/(?P<token>.+)/$',
         auth_views.PasswordResetConfirmView.as_view(
             template_name='password_management/password_reset_confirm.html',
             success_url=reverse_lazy('auth_password_reset_complete')
