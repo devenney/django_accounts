@@ -10,7 +10,7 @@
     "test": "pipenv run python manage.py"
   },
   "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-mjml": "^3.0.0"
+    "gulp": "^4.0.0",
+    "gulp-mjml": "^4.0.0"
   }
 }
